@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Usac_Banco.Models
+namespace Usac_Banco
 {
     using System;
     using System.Data.Entity;

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="banco_practica_3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="credito">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Monto" Type="Single" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="cuenta" Type="Int32" />
+    <NavigationProperty Name="cuenta1" Relationship="Self.credito_ibfk_1" FromRole="credito" ToRole="cuenta" />
+    <NavigationProperty Name="debito" Relationship="Self.debito_ibfk_1" FromRole="credito" ToRole="debito" />
+  </EntityType>
+  <EntityType Name="cuenta">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Numero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Saldo" Type="Single" />
+    <Property Name="usua" Type="Int32" />
+    <NavigationProperty Name="credito" Relationship="Self.credito_ibfk_1" FromRole="cuenta" ToRole="credito" />
+    <NavigationProperty Name="usuario" Relationship="Self.cuenta_ibfk_1" FromRole="cuenta" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="debito">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Monto" Type="Single" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="credito" Type="Int32" />
+    <NavigationProperty Name="credito1" Relationship="Self.debito_ibfk_1" FromRole="debito" ToRole="credito" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="usua" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="cuenta" Relationship="Self.cuenta_ibfk_1" FromRole="usuario" ToRole="cuenta" />
+  </EntityType>
+  <Association Name="credito_ibfk_1">
+    <End Role="cuenta" Type="Self.cuenta" Multiplicity="0..1" />
+    <End Role="credito" Type="Self.credito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cuenta">
+        <PropertyRef Name="codigo" />
+      </Principal>
+      <Dependent Role="credito">
+        <PropertyRef Name="cuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="debito_ibfk_1">
+    <End Role="credito" Type="Self.credito" Multiplicity="0..1" />
+    <End Role="debito" Type="Self.debito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="credito">
+        <PropertyRef Name="codigo" />
+      </Principal>
+      <Dependent Role="debito">
+        <PropertyRef Name="credito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cuenta_ibfk_1">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+    <End Role="cuenta" Type="Self.cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="codigo" />
+      </Principal>
+      <Dependent Role="cuenta">
+        <PropertyRef Name="usua" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="banco_practica_3Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="credito" EntityType="Self.credito" />
+    <EntitySet Name="cuenta" EntityType="Self.cuenta" />
+    <EntitySet Name="debito" EntityType="Self.debito" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" />
+    <AssociationSet Name="credito_ibfk_1" Association="Self.credito_ibfk_1">
+      <End Role="cuenta" EntitySet="cuenta" />
+      <End Role="credito" EntitySet="credito" />
+    </AssociationSet>
+    <AssociationSet Name="debito_ibfk_1" Association="Self.debito_ibfk_1">
+      <End Role="credito" EntitySet="credito" />
+      <End Role="debito" EntitySet="debito" />
+    </AssociationSet>
+    <AssociationSet Name="cuenta_ibfk_1" Association="Self.cuenta_ibfk_1">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="cuenta" EntitySet="cuenta" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -7,27 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Usac_Banco.Models
+namespace Usac_Banco
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class credito
+    public partial class cuenta
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public credito()
+        public cuenta()
         {
-            this.debito = new HashSet<debito>();
+            this.credito = new HashSet<credito>();
         }
     
         public int codigo { get; set; }
-        public Nullable<float> Monto { get; set; }
-        public string Descripcion { get; set; }
-        public byte[] estado { get; set; }
-        public Nullable<int> cuenta { get; set; }
+        public string Numero { get; set; }
+        public Nullable<float> Saldo { get; set; }
+        public Nullable<int> usua { get; set; }
     
-        public virtual cuenta cuenta1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<debito> debito { get; set; }
+        public virtual ICollection<credito> credito { get; set; }
+        public virtual usuario usuario { get; set; }
     }
 }
