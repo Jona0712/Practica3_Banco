@@ -161,7 +161,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\creditoesController.cs" />
+    <Compile Include="Controllers\cuentasController.cs" />
+    <Compile Include="Controllers\debitoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\usuariosController.cs" />
     <Compile Include="credito.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -256,6 +259,21 @@
     <Content Include="Views\creditoes\Details.cshtml" />
     <Content Include="Views\creditoes\Edit.cshtml" />
     <Content Include="Views\creditoes\Index.cshtml" />
+    <Content Include="Views\cuentas\Create.cshtml" />
+    <Content Include="Views\cuentas\Delete.cshtml" />
+    <Content Include="Views\cuentas\Details.cshtml" />
+    <Content Include="Views\cuentas\Edit.cshtml" />
+    <Content Include="Views\cuentas\Index.cshtml" />
+    <Content Include="Views\debitoes\Create.cshtml" />
+    <Content Include="Views\debitoes\Delete.cshtml" />
+    <Content Include="Views\debitoes\Details.cshtml" />
+    <Content Include="Views\debitoes\Edit.cshtml" />
+    <Content Include="Views\debitoes\Index.cshtml" />
+    <Content Include="Views\usuarios\Create.cshtml" />
+    <Content Include="Views\usuarios\Delete.cshtml" />
+    <Content Include="Views\usuarios\Details.cshtml" />
+    <Content Include="Views\usuarios\Edit.cshtml" />
+    <Content Include="Views\usuarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
