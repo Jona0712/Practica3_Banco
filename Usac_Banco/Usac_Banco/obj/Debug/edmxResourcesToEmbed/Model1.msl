@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="banco_practica_3ModelStoreContainer" CdmEntityContainer="banco_practica_3Entities">
+  <EntityContainerMapping StorageEntityContainer="banco_practica_3ModelStoreContainer" CdmEntityContainer="banco_practica_3Entities2">
     <EntitySetMapping Name="credito">
       <EntityTypeMapping TypeName="banco_practica_3Model.credito">
         <MappingFragment StoreEntitySet="credito">
@@ -15,7 +15,6 @@
     <EntitySetMapping Name="cuenta">
       <EntityTypeMapping TypeName="banco_practica_3Model.cuenta">
         <MappingFragment StoreEntitySet="cuenta">
-          <ScalarProperty Name="codigo" ColumnName="codigo" />
           <ScalarProperty Name="Numero" ColumnName="Numero" />
           <ScalarProperty Name="Saldo" ColumnName="Saldo" />
           <ScalarProperty Name="usua" ColumnName="usua" />
@@ -28,7 +27,15 @@
           <ScalarProperty Name="codigo" ColumnName="codigo" />
           <ScalarProperty Name="Monto" ColumnName="Monto" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="credito" ColumnName="credito" />
+          <ScalarProperty Name="cuenta" ColumnName="cuenta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rol">
+      <EntityTypeMapping TypeName="banco_practica_3Model.rol">
+        <MappingFragment StoreEntitySet="rol">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -41,6 +48,7 @@
           <ScalarProperty Name="usua" ColumnName="usua" />
           <ScalarProperty Name="correo" ColumnName="correo" />
           <ScalarProperty Name="pass" ColumnName="pass" />
+          <ScalarProperty Name="rol" ColumnName="rol" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

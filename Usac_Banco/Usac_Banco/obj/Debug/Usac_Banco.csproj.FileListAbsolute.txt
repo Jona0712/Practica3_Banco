@@ -35,7 +35,6 @@ C:\Users\Jona\Desktop\Practica3_Banco\Usac_Banco\Usac_Banco\bin\System.Web.WebPa
 C:\Users\Jona\Desktop\Practica3_Banco\Usac_Banco\Usac_Banco\bin\System.Web.WebPages.Razor.xml
 C:\Users\Jona\Desktop\Practica3_Banco\Usac_Banco\Usac_Banco\bin\Antlr3.Runtime.pdb
 C:\Users\Jona\Desktop\Practica3_Banco\Usac_Banco\Usac_Banco\bin\Newtonsoft.Json.xml
-C:\Users\Jona\Desktop\Practica3_Banco\Usac_Banco\Usac_Banco\obj\Debug\Usac_Banco.csprojResolveAssemblyReference.cache
 C:\Users\Jona\Desktop\Practica3_Banco\Usac_Banco\Usac_Banco\obj\Debug\Usac_Banco.dll
 C:\Users\Jona\Desktop\Practica3_Banco\Usac_Banco\Usac_Banco\obj\Debug\Usac_Banco.pdb
 C:\Users\Jona\Desktop\Practica3_Banco\Usac_Banco\Usac_Banco\bin\ApplicationInsights.config

@@ -4,14 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d4b41de7d1794e53a5a53ddfd7a1a8f1" Name="Diagram1">
-        <EntityTypeShape EntityType="banco_practica_3Model.credito" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="banco_practica_3Model.cuenta" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="banco_practica_3Model.debito" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="banco_practica_3Model.usuario" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="ed671cb006dc42029b567354c6523192" Name="Diagram1">
+        <EntityTypeShape EntityType="banco_practica_3Model.credito" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="banco_practica_3Model.cuenta" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="banco_practica_3Model.debito" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="banco_practica_3Model.rol" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="banco_practica_3Model.usuario" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
         <AssociationConnector Association="banco_practica_3Model.credito_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="banco_practica_3Model.debito_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="banco_practica_3Model.cuenta_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="banco_practica_3Model.debito_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="banco_practica_3Model.usuario_ibfk_1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

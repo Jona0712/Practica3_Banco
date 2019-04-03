@@ -12,12 +12,12 @@ namespace Usac_Banco.Controllers
 {
     public class debitoesController : Controller
     {
-        private banco_practica_3Entities db = new banco_practica_3Entities();
+        private banco_practica_3Entities2 db = new banco_practica_3Entities2();
 
         // GET: debitoes
         public ActionResult Index()
         {
-            var debito = db.debito.Include(d => d.credito1);
+            var debito = db.debito.Include(d => d.cuenta1);
             return View(debito.ToList());
         }
 
@@ -57,7 +57,7 @@ namespace Usac_Banco.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.credito = new SelectList(db.credito, "codigo", "Descripcion", debito.credito);
+            ViewBag.credito = new SelectList(db.credito, "codigo", "Descripcion", debito.cuenta);
             return View(debito);
         }
 
@@ -73,7 +73,7 @@ namespace Usac_Banco.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.credito = new SelectList(db.credito, "codigo", "Descripcion", debito.credito);
+            ViewBag.credito = new SelectList(db.credito, "codigo", "Descripcion", debito.cuenta);
             return View(debito);
         }
 
@@ -90,7 +90,7 @@ namespace Usac_Banco.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.credito = new SelectList(db.credito, "codigo", "Descripcion", debito.credito);
+            ViewBag.credito = new SelectList(db.credito, "codigo", "Descripcion", debito.cuenta);
             return View(debito);
         }
 

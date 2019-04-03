@@ -8,7 +8,7 @@ namespace Usac_Banco.Controllers
 {
     public class usuariosController : Controller
     {
-        private banco_practica_3Entities db = new banco_practica_3Entities();
+        private banco_practica_3Entities2 db = new banco_practica_3Entities2();
 
         // GET: usuarios
         public ActionResult Index()

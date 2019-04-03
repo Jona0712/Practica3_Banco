@@ -13,10 +13,10 @@ namespace Usac_Banco
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class banco_practica_3Entities : DbContext
+    public partial class banco_practica_3Entities2 : DbContext
     {
-        public banco_practica_3Entities()
-            : base("name=banco_practica_3Entities")
+        public banco_practica_3Entities2()
+            : base("name=banco_practica_3Entities2")
         {
         }
     
@@ -28,6 +28,7 @@ namespace Usac_Banco
         public virtual DbSet<credito> credito { get; set; }
         public virtual DbSet<cuenta> cuenta { get; set; }
         public virtual DbSet<debito> debito { get; set; }
+        public virtual DbSet<rol> rol { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
     }
 }

@@ -17,10 +17,9 @@
         </EntityType>
         <EntityType Name="cuenta">
           <Key>
-            <PropertyRef Name="codigo" />
+            <PropertyRef Name="Numero" />
           </Key>
-          <Property Name="codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Numero" Type="varchar" MaxLength="50" />
+          <Property Name="Numero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Saldo" Type="float" />
           <Property Name="usua" Type="int" />
         </EntityType>
@@ -31,7 +30,14 @@
           <Property Name="codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Monto" Type="float" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
-          <Property Name="credito" Type="int" />
+          <Property Name="cuenta" Type="int" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="usuario">
           <Key>
@@ -43,13 +49,14 @@
           <Property Name="usua" Type="varchar" MaxLength="50" />
           <Property Name="correo" Type="varchar" MaxLength="50" />
           <Property Name="pass" Type="varchar" MaxLength="50" />
+          <Property Name="rol" Type="int" />
         </EntityType>
         <Association Name="credito_ibfk_1">
           <End Role="cuenta" Type="Self.cuenta" Multiplicity="0..1" />
           <End Role="credito" Type="Self.credito" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cuenta">
-              <PropertyRef Name="codigo" />
+              <PropertyRef Name="Numero" />
             </Principal>
             <Dependent Role="credito">
               <PropertyRef Name="cuenta" />
@@ -69,14 +76,26 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="debito_ibfk_1">
-          <End Role="credito" Type="Self.credito" Multiplicity="0..1" />
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="0..1" />
           <End Role="debito" Type="Self.debito" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="credito">
-              <PropertyRef Name="codigo" />
+            <Principal Role="cuenta">
+              <PropertyRef Name="Numero" />
             </Principal>
             <Dependent Role="debito">
-              <PropertyRef Name="credito" />
+              <PropertyRef Name="cuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_ibfk_1">
+          <End Role="rol" Type="Self.rol" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="rol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -84,6 +103,7 @@
           <EntitySet Name="credito" EntityType="Self.credito" Schema="banco_practica_3" store:Type="Tables" />
           <EntitySet Name="cuenta" EntityType="Self.cuenta" Schema="banco_practica_3" store:Type="Tables" />
           <EntitySet Name="debito" EntityType="Self.debito" Schema="banco_practica_3" store:Type="Tables" />
+          <EntitySet Name="rol" EntityType="Self.rol" Schema="banco_practica_3" store:Type="Tables" />
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="banco_practica_3" store:Type="Tables" />
           <AssociationSet Name="credito_ibfk_1" Association="Self.credito_ibfk_1">
             <End Role="cuenta" EntitySet="cuenta" />
@@ -94,8 +114,12 @@
             <End Role="cuenta" EntitySet="cuenta" />
           </AssociationSet>
           <AssociationSet Name="debito_ibfk_1" Association="Self.debito_ibfk_1">
-            <End Role="credito" EntitySet="credito" />
+            <End Role="cuenta" EntitySet="cuenta" />
             <End Role="debito" EntitySet="debito" />
+          </AssociationSet>
+          <AssociationSet Name="usuario_ibfk_1" Association="Self.usuario_ibfk_1">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -113,18 +137,17 @@
           <Property Name="estado" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="cuenta" Type="Int32" />
           <NavigationProperty Name="cuenta1" Relationship="Self.credito_ibfk_1" FromRole="credito" ToRole="cuenta" />
-          <NavigationProperty Name="debito" Relationship="Self.debito_ibfk_1" FromRole="credito" ToRole="debito" />
         </EntityType>
         <EntityType Name="cuenta">
           <Key>
-            <PropertyRef Name="codigo" />
+            <PropertyRef Name="Numero" />
           </Key>
-          <Property Name="codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Numero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Saldo" Type="Single" />
           <Property Name="usua" Type="Int32" />
           <NavigationProperty Name="credito" Relationship="Self.credito_ibfk_1" FromRole="cuenta" ToRole="credito" />
           <NavigationProperty Name="usuario" Relationship="Self.cuenta_ibfk_1" FromRole="cuenta" ToRole="usuario" />
+          <NavigationProperty Name="debito" Relationship="Self.debito_ibfk_1" FromRole="cuenta" ToRole="debito" />
         </EntityType>
         <EntityType Name="debito">
           <Key>
@@ -133,8 +156,16 @@
           <Property Name="codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Monto" Type="Single" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="credito" Type="Int32" />
-          <NavigationProperty Name="credito1" Relationship="Self.debito_ibfk_1" FromRole="debito" ToRole="credito" />
+          <Property Name="cuenta" Type="Int32" />
+          <NavigationProperty Name="cuenta1" Relationship="Self.debito_ibfk_1" FromRole="debito" ToRole="cuenta" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.usuario_ibfk_1" FromRole="rol" ToRole="usuario" />
         </EntityType>
         <EntityType Name="usuario">
           <Key>
@@ -146,29 +177,19 @@
           <Property Name="usua" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rol" Type="Int32" />
           <NavigationProperty Name="cuenta" Relationship="Self.cuenta_ibfk_1" FromRole="usuario" ToRole="cuenta" />
+          <NavigationProperty Name="rol1" Relationship="Self.usuario_ibfk_1" FromRole="usuario" ToRole="rol" />
         </EntityType>
         <Association Name="credito_ibfk_1">
           <End Role="cuenta" Type="Self.cuenta" Multiplicity="0..1" />
           <End Role="credito" Type="Self.credito" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cuenta">
-              <PropertyRef Name="codigo" />
+              <PropertyRef Name="Numero" />
             </Principal>
             <Dependent Role="credito">
               <PropertyRef Name="cuenta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="debito_ibfk_1">
-          <End Role="credito" Type="Self.credito" Multiplicity="0..1" />
-          <End Role="debito" Type="Self.debito" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="credito">
-              <PropertyRef Name="codigo" />
-            </Principal>
-            <Dependent Role="debito">
-              <PropertyRef Name="credito" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -184,22 +205,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="banco_practica_3Entities" annotation:LazyLoadingEnabled="true">
+        <Association Name="debito_ibfk_1">
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="0..1" />
+          <End Role="debito" Type="Self.debito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cuenta">
+              <PropertyRef Name="Numero" />
+            </Principal>
+            <Dependent Role="debito">
+              <PropertyRef Name="cuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_ibfk_1">
+          <End Role="rol" Type="Self.rol" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="banco_practica_3Entities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="credito" EntityType="Self.credito" />
           <EntitySet Name="cuenta" EntityType="Self.cuenta" />
           <EntitySet Name="debito" EntityType="Self.debito" />
+          <EntitySet Name="rol" EntityType="Self.rol" />
           <EntitySet Name="usuario" EntityType="Self.usuario" />
           <AssociationSet Name="credito_ibfk_1" Association="Self.credito_ibfk_1">
             <End Role="cuenta" EntitySet="cuenta" />
             <End Role="credito" EntitySet="credito" />
           </AssociationSet>
-          <AssociationSet Name="debito_ibfk_1" Association="Self.debito_ibfk_1">
-            <End Role="credito" EntitySet="credito" />
-            <End Role="debito" EntitySet="debito" />
-          </AssociationSet>
           <AssociationSet Name="cuenta_ibfk_1" Association="Self.cuenta_ibfk_1">
             <End Role="usuario" EntitySet="usuario" />
             <End Role="cuenta" EntitySet="cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="debito_ibfk_1" Association="Self.debito_ibfk_1">
+            <End Role="cuenta" EntitySet="cuenta" />
+            <End Role="debito" EntitySet="debito" />
+          </AssociationSet>
+          <AssociationSet Name="usuario_ibfk_1" Association="Self.usuario_ibfk_1">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -207,7 +257,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="banco_practica_3ModelStoreContainer" CdmEntityContainer="banco_practica_3Entities">
+        <EntityContainerMapping StorageEntityContainer="banco_practica_3ModelStoreContainer" CdmEntityContainer="banco_practica_3Entities2">
           <EntitySetMapping Name="credito">
             <EntityTypeMapping TypeName="banco_practica_3Model.credito">
               <MappingFragment StoreEntitySet="credito">
@@ -222,7 +272,6 @@
           <EntitySetMapping Name="cuenta">
             <EntityTypeMapping TypeName="banco_practica_3Model.cuenta">
               <MappingFragment StoreEntitySet="cuenta">
-                <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="Numero" ColumnName="Numero" />
                 <ScalarProperty Name="Saldo" ColumnName="Saldo" />
                 <ScalarProperty Name="usua" ColumnName="usua" />
@@ -235,7 +284,15 @@
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="Monto" ColumnName="Monto" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="credito" ColumnName="credito" />
+                <ScalarProperty Name="cuenta" ColumnName="cuenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol">
+            <EntityTypeMapping TypeName="banco_practica_3Model.rol">
+              <MappingFragment StoreEntitySet="rol">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -248,6 +305,7 @@
                 <ScalarProperty Name="usua" ColumnName="usua" />
                 <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

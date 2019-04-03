@@ -18,15 +18,17 @@ namespace Usac_Banco
         public cuenta()
         {
             this.credito = new HashSet<credito>();
+            this.debito = new HashSet<debito>();
         }
     
-        public int codigo { get; set; }
-        public string Numero { get; set; }
+        public int Numero { get; set; }
         public Nullable<float> Saldo { get; set; }
         public Nullable<int> usua { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<credito> credito { get; set; }
         public virtual usuario usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<debito> debito { get; set; }
     }
 }

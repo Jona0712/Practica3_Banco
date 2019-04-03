@@ -14,12 +14,6 @@ namespace Usac_Banco
     
     public partial class credito
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public credito()
-        {
-            this.debito = new HashSet<debito>();
-        }
-    
         public int codigo { get; set; }
         public Nullable<float> Monto { get; set; }
         public string Descripcion { get; set; }
@@ -27,7 +21,5 @@ namespace Usac_Banco
         public Nullable<int> cuenta { get; set; }
     
         public virtual cuenta cuenta1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<debito> debito { get; set; }
     }
 }

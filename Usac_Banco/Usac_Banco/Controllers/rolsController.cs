@@ -10,112 +10,107 @@ using Usac_Banco;
 
 namespace Usac_Banco.Controllers
 {
-    public class creditoesController : Controller
+    public class rolsController : Controller
     {
         private banco_practica_3Entities2 db = new banco_practica_3Entities2();
 
-        // GET: creditoes
+        // GET: rols
         public ActionResult Index()
         {
-            var credito = db.credito.Include(c => c.cuenta1);
-            return View(credito.ToList());
+            return View(db.rol.ToList());
         }
 
-        // GET: creditoes/Details/5
+        // GET: rols/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            credito credito = db.credito.Find(id);
-            if (credito == null)
+            rol rol = db.rol.Find(id);
+            if (rol == null)
             {
                 return HttpNotFound();
             }
-            return View(credito);
+            return View(rol);
         }
 
-        // GET: creditoes/Create
+        // GET: rols/Create
         public ActionResult Create()
         {
-            ViewBag.cuenta = new SelectList(db.cuenta, "codigo", "Numero");
             return View();
         }
 
-        // POST: creditoes/Create
+        // POST: rols/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codigo,Monto,Descripcion,estado,cuenta")] credito credito)
+        public ActionResult Create([Bind(Include = "id,nombre")] rol rol)
         {
             if (ModelState.IsValid)
             {
-                db.credito.Add(credito);
+                db.rol.Add(rol);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.cuenta = new SelectList(db.cuenta, "codigo", "Numero", credito.cuenta);
-            return View(credito);
+            return View(rol);
         }
 
-        // GET: creditoes/Edit/5
+        // GET: rols/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            credito credito = db.credito.Find(id);
-            if (credito == null)
+            rol rol = db.rol.Find(id);
+            if (rol == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.cuenta = new SelectList(db.cuenta, "codigo", "Numero", credito.cuenta);
-            return View(credito);
+            return View(rol);
         }
 
-        // POST: creditoes/Edit/5
+        // POST: rols/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "codigo,Monto,Descripcion,estado,cuenta")] credito credito)
+        public ActionResult Edit([Bind(Include = "id,nombre")] rol rol)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(credito).State = EntityState.Modified;
+                db.Entry(rol).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.cuenta = new SelectList(db.cuenta, "codigo", "Numero", credito.cuenta);
-            return View(credito);
+            return View(rol);
         }
 
-        // GET: creditoes/Delete/5
+        // GET: rols/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            credito credito = db.credito.Find(id);
-            if (credito == null)
+            rol rol = db.rol.Find(id);
+            if (rol == null)
             {
                 return HttpNotFound();
             }
-            return View(credito);
+            return View(rol);
         }
 
-        // POST: creditoes/Delete/5
+        // POST: rols/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            credito credito = db.credito.Find(id);
-            db.credito.Remove(credito);
+            rol rol = db.rol.Find(id);
+            db.rol.Remove(rol);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
