@@ -48,7 +48,7 @@ namespace Usac_Banco.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codigo,Numero,Saldo,usua")] cuenta cuenta)
+        public ActionResult Create([Bind(Include = "Numero,Saldo,usua")] cuenta cuenta)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Usac_Banco.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "codigo,Numero,Saldo,usua")] cuenta cuenta)
+        public ActionResult Edit([Bind(Include = "Numero,Saldo,usua")] cuenta cuenta)
         {
             if (ModelState.IsValid)
             {

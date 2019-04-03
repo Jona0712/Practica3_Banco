@@ -1,42 +1,42 @@
 ﻿@model Usac_Banco.cuenta
 
 @{
-    ViewBag.Title = "Details";
+    Layout = null;
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
 
-<div>
-    <h4>cuenta</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Numero)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Saldo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Saldo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.usuario.nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.usuario.nombre)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.codigo }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>cuenta</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Saldo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Saldo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.usuario.nombre)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.usuario.nombre)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Numero }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

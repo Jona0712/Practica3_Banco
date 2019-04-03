@@ -360,16 +360,6 @@
     <Content Include="Views\creditoes\Details.cshtml" />
     <Content Include="Views\creditoes\Edit.cshtml" />
     <Content Include="Views\creditoes\Index.cshtml" />
-    <Content Include="Views\cuentas\Create.cshtml" />
-    <Content Include="Views\cuentas\Delete.cshtml" />
-    <Content Include="Views\cuentas\Details.cshtml" />
-    <Content Include="Views\cuentas\Edit.cshtml" />
-    <Content Include="Views\cuentas\Index.cshtml" />
-    <Content Include="Views\debitoes\Create.cshtml" />
-    <Content Include="Views\debitoes\Delete.cshtml" />
-    <Content Include="Views\debitoes\Details.cshtml" />
-    <Content Include="Views\debitoes\Edit.cshtml" />
-    <Content Include="Views\debitoes\Index.cshtml" />
     <Content Include="Views\usuarios\Create.cshtml" />
     <Content Include="Views\usuarios\Delete.cshtml" />
     <Content Include="Views\usuarios\Details.cshtml" />
@@ -428,6 +418,16 @@
     <Content Include="Views\rols\Details.cshtml" />
     <Content Include="Views\rols\Edit.cshtml" />
     <Content Include="Views\rols\Index.cshtml" />
+    <Content Include="Views\cuentas\Create.cshtml" />
+    <Content Include="Views\cuentas\Delete.cshtml" />
+    <Content Include="Views\cuentas\Details.cshtml" />
+    <Content Include="Views\cuentas\Edit.cshtml" />
+    <Content Include="Views\cuentas\Index.cshtml" />
+    <Content Include="Views\debitoes\Create.cshtml" />
+    <Content Include="Views\debitoes\Delete.cshtml" />
+    <Content Include="Views\debitoes\Details.cshtml" />
+    <Content Include="Views\debitoes\Edit.cshtml" />
+    <Content Include="Views\debitoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -39,7 +39,7 @@ namespace Usac_Banco.Controllers
         // GET: debitoes/Create
         public ActionResult Create()
         {
-            ViewBag.credito = new SelectList(db.credito, "codigo", "Descripcion");
+            ViewBag.cuenta = new SelectList(db.cuenta, "Numero", "Numero");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace Usac_Banco.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codigo,Monto,Descripcion,credito")] debito debito)
+        public ActionResult Create([Bind(Include = "codigo,Monto,Descripcion,cuenta")] debito debito)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace Usac_Banco.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.credito = new SelectList(db.credito, "codigo", "Descripcion", debito.cuenta);
+            ViewBag.cuenta = new SelectList(db.cuenta, "Numero", "Numero", debito.cuenta);
             return View(debito);
         }
 
@@ -73,7 +73,7 @@ namespace Usac_Banco.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.credito = new SelectList(db.credito, "codigo", "Descripcion", debito.cuenta);
+            ViewBag.cuenta = new SelectList(db.cuenta, "Numero", "Numero", debito.cuenta);
             return View(debito);
         }
 
@@ -82,7 +82,7 @@ namespace Usac_Banco.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "codigo,Monto,Descripcion,credito")] debito debito)
+        public ActionResult Edit([Bind(Include = "codigo,Monto,Descripcion,cuenta")] debito debito)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Usac_Banco.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.credito = new SelectList(db.credito, "codigo", "Descripcion", debito.cuenta);
+            ViewBag.cuenta = new SelectList(db.cuenta, "Numero", "Numero", debito.cuenta);
             return View(debito);
         }
 
