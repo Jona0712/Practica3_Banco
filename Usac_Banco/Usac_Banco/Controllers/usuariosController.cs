@@ -10,6 +10,17 @@ namespace Usac_Banco.Controllers
     {
         private banco_practica_3Entities2 db = new banco_practica_3Entities2();
 
+        public ActionResult AdminInd()
+        {
+            if (Session["codigo"] != null)
+            {
+                usuario usu = db.usuario.Find(Session["codigo"]);
+                ViewBag.nombre = usu.nombre + " " + usu.apellido;
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
+
         // GET: usuarios
         public ActionResult Index()
         {
@@ -19,10 +30,20 @@ namespace Usac_Banco.Controllers
                 usuario usu = db.usuario.Find(Session["codigo"]);
                 ViewBag.codigo = usu.codigo.ToString();
                 ViewBag.nombre = usu.nombre + " " + usu.apellido;
-                //ViewBag.cuenta = numero de cuenta
+                ViewBag.cuenta = db.cuenta.Where(i => i.usua == usu.codigo).First().Numero.ToString();
                 return View();
             }
             return RedirectToAction("Login");
+        }
+
+        // GET: usuarios
+        public ActionResult Info(int codigo)
+        {
+            usuario usu = db.usuario.Find(codigo);
+            ViewBag.codigo = usu.codigo.ToString();
+            ViewBag.nombre = usu.nombre;
+            ViewBag.cuenta = db.cuenta.Where(i => i.usua == usu.codigo).First().Numero.ToString();
+            return View();
         }
 
         // GET: usuarios/Details/5
@@ -61,9 +82,15 @@ namespace Usac_Banco.Controllers
                 if (usuario != null && model.usua == usuario.usua && model.pass == usuario.pass)
                 {
                     Session["codigo"] = usuario.codigo;
-                    //Session["usuario"] = usuario.nombre +" "+usuario.apellido;
-                    //Session["usuario"] = usuario.usua; numero de cuenta
-                    return RedirectToAction("Index");
+
+                    if (usuario.rol == 2)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return RedirectToAction("AdminInd");
+                    }
                 }
                 return View();
             }
@@ -83,17 +110,24 @@ namespace Usac_Banco.Controllers
         }
 
         // POST: usuarios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "nombre,apellido,usua,correo,pass")] usuario usuario)
         {
+            usuario.rol = 2;
             if (ModelState.IsValid)
             {
                 db.usuario.Add(usuario);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                cuentasController cuenCon = new cuentasController();
+                cuenta cuenti = new cuenta();
+                cuenti.Saldo = 0;
+                int codi = db.usuario.Where(i => i.usua == usuario.usua).First().codigo;
+                cuenti.usua = codi;
+                if (cuenCon.Create(cuenti))
+                {
+                    return RedirectToAction("Info", new { codigo = codi });
+                }
             }
 
             return View(usuario);
@@ -115,8 +149,6 @@ namespace Usac_Banco.Controllers
         }
 
         // POST: usuarios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "codigo,nombre,apellido,usua,correo,pass")] usuario usuario)

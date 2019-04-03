@@ -11,7 +11,8 @@ namespace Usac_Banco
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class usuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,11 +22,24 @@ namespace Usac_Banco
         }
     
         public int codigo { get; set; }
+        [Display(Name = "Nombre")]
         public string nombre { get; set; }
+
+        [Display(Name = "Apellido")]
         public string apellido { get; set; }
+
+        [StringLength(15, ErrorMessage = "El usuario debe ser menor a {0} caractéres.", MinimumLength = 3)]
+        [RegularExpression("^[a-zA-Z0-9]+[0-9]+[a-zA-Z0-9]*$", ErrorMessage = "* Debe tener al menos un número.")]
+        [Display(Name = "Usuario")]
         public string usua { get; set; }
+
+        [Display(Name = "Correo")]
         public string correo { get; set; }
+
+        [Display(Name = "Contraseña")]
+        [DataType(DataType.Password)]
         public string pass { get; set; }
+
         public Nullable<int> rol { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

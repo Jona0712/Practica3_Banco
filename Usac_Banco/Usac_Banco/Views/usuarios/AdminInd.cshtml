@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "AdminInd";
+    string nombre = ViewBag.nombre;
+}
+
+<h2>Pagina De Administrador</h2>
+
+<h4>Bienvenido @nombre</h4>
+<hr />
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <a href="@Url.Action("Create", "usuarios")" class="btn btn-lg btn-primary btn-block">
+                <h4 style="color:white;">
+                    Nuevo Administrador
+                </h4>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <a href="@Url.Action("Create", "usuarios")" class="btn btn-lg btn-success btn-block">
+                <h4 style="color:white;">
+                    Ver Créditos
+                </h4>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <a href="@Url.Action("Create", "usuarios")" class="btn btn-lg btn-warning btn-block">
+                <h4 style="color:white;">
+                    Débitos
+                </h4>
+            </a>
+        </div>
+    </div>
+</div>

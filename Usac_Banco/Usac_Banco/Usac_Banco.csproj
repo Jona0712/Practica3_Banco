@@ -428,6 +428,8 @@
     <Content Include="Views\debitoes\Details.cshtml" />
     <Content Include="Views\debitoes\Edit.cshtml" />
     <Content Include="Views\debitoes\Index.cshtml" />
+    <Content Include="Views\usuarios\AdminInd.cshtml" />
+    <Content Include="Views\usuarios\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

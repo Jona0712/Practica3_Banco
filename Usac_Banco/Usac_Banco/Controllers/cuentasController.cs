@@ -36,29 +36,27 @@ namespace Usac_Banco.Controllers
             return View(cuenta);
         }
 
-        // GET: cuentas/Create
+        /* GET: cuentas/Create
         public ActionResult Create()
         {
             ViewBag.usua = new SelectList(db.usuario, "codigo", "nombre");
             return View();
-        }
+        }*/
 
         // POST: cuentas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Numero,Saldo,usua")] cuenta cuenta)
+        public bool Create([Bind(Include = "Saldo,usua")] cuenta cuenta)
         {
             if (ModelState.IsValid)
             {
                 db.cuenta.Add(cuenta);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return true;
             }
 
-            ViewBag.usua = new SelectList(db.usuario, "codigo", "nombre", cuenta.usua);
-            return View(cuenta);
+            //ViewBag.usua = new SelectList(db.usuario, "codigo", "nombre", cuenta.usua);
+            return false;
         }
 
         // GET: cuentas/Edit/5
