@@ -39,11 +39,15 @@ namespace Usac_Banco.Controllers
         // GET: usuarios
         public ActionResult Info(int codigo)
         {
-            usuario usu = db.usuario.Find(codigo);
-            ViewBag.codigo = usu.codigo.ToString();
-            ViewBag.nombre = usu.nombre;
-            ViewBag.cuenta = db.cuenta.Where(i => i.usua == usu.codigo).First().Numero.ToString();
-            return View();
+            if (codigo > 0)
+            {
+                usuario usu = db.usuario.Find(codigo);
+                ViewBag.codigo = usu.codigo.ToString();
+                ViewBag.nombre = usu.nombre;
+                ViewBag.cuenta = db.cuenta.Where(i => i.usua == usu.codigo).First().Numero.ToString();
+                return View();
+            }
+            return RedirectToAction("Login");
         }
 
         // GET: usuarios/Details/5
