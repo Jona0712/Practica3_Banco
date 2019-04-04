@@ -12,29 +12,59 @@ namespace Usac_Banco.Controllers
 {
     public class creditoesController : Controller
     {
+        byte[] a = new byte[1];
         private banco_practica_3Entities2 db = new banco_practica_3Entities2();
 
         // GET: creditoes
         public ActionResult Index()
         {
-            //var credito = db.credito.Where(i => i.estado == "2");
-            //return View(credito.ToList());
-            return View();
+            if (Session["codigo"] != null)
+            {
+                a[0] = 2;
+                var credito = db.credito.Where(i => i.estado == a);
+                return View(credito.ToList());
+            }
+            return RedirectToAction("Login", "usuarios");
         }
 
         // GET: creditoes/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, bool si)
         {
-            if (id == null)
+            if (Session["codigo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                credito credi = db.credito.Find(id);
+                if (credi == null)
+                {
+                    return HttpNotFound();
+                }
+                if (si)
+                {
+                    cuenta cuentica = db.cuenta.Find(credi.cuenta);
+                    if (cuentica == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    cuentica.Saldo = cuentica.Saldo + credi.Monto;
+                    a[0] = 1; //aceptado
+                    credi.estado = a;
+                    db.Entry(cuentica).State = EntityState.Modified;
+                    db.Entry(credi).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    a[0] = 3; //rechazada
+                    credi.estado = a;
+                    db.Entry(credi).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index");
             }
-            credito credito = db.credito.Find(id);
-            if (credito == null)
-            {
-                return HttpNotFound();
-            }
-            return View(credito);
+            return RedirectToAction("Login", "usuarios");
         }
 
         // GET: creditoes/Create
@@ -48,7 +78,7 @@ namespace Usac_Banco.Controllers
                 ViewBag.cuenta = db.cuenta.Where(i => i.usua == usu.codigo).First().Numero.ToString();
                 return View();
             }
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", "usuarios");
         }
 
         // POST: creditoes/Create
@@ -56,7 +86,8 @@ namespace Usac_Banco.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Monto,Descripcion,estado,cuenta")] credito credito)
         {
-            //credito.estado = "2";
+            a[0] = 2; // 2 sin resolver
+            credito.estado = a;
             if (ModelState.IsValid)
             {
                 db.credito.Add(credito);

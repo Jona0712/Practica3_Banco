@@ -20,29 +20,45 @@
         <th>
             @Html.DisplayNameFor(model => model.cuenta1.Numero)
         </th>
-        <th></th>
+        <th>
+            Aceptar
+        </th>
+        <th>
+            Rechazar
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Monto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cuenta1.Numero)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.codigo }) |
-            @Html.ActionLink("Details", "Details", new { id=item.codigo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.codigo })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Monto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                <h5 class="btn btn-info btn-xs disabled">Pendiente</h5>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cuenta1.Numero)
+            </td>
+            <td class="center">
+                <a href="@Url.Action("Details", "creditoes", new { id=item.codigo, si=true })" class="btn btn-success btn-circle"><i class="fa fa-check"></i></a>
+            </td>
+            <td class="center">
+                <a href="@Url.Action("Details", "creditoes", new { id=item.codigo, si=false })" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<hr />
+<div class="row"
+    <div class="form-group">
+        <div class="col-md-offset-1 col-md-10" align="center">
+            <a href="@Url.Action("AdminInd", "usuarios")" class="btn btn-lg btn-info">Regresar</a>
+        </div>
+    </div>
+</div>

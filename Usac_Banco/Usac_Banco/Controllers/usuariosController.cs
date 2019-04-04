@@ -21,6 +21,7 @@ namespace Usac_Banco.Controllers
             }
             return RedirectToAction("Login");
         }
+
         //Get 
         public ActionResult Transferencia()
         {
@@ -36,6 +37,7 @@ namespace Usac_Banco.Controllers
             }
             return RedirectToAction("Login");
         }
+
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -66,9 +68,21 @@ namespace Usac_Banco.Controllers
             }
             return RedirectToAction("Index");
         }
+
         public ActionResult TransExito() {
-            return View();
+            if (Session["codigo"] != null)
+            {
+                usuario usu = db.usuario.Find(Session["codigo"]);
+                ViewBag.codigo = usu.codigo.ToString();
+                ViewBag.nombre = usu.nombre + " " + usu.apellido;
+                ViewBag.cuenta = db.cuenta.Where(i => i.usua == usu.codigo).First().Numero.ToString();
+                cuenta cu = db.cuenta.Where(s => s.usua == usu.codigo).First();
+                ViewBag.saldo = cu.Saldo.ToString();
+                return View();
+            }
+            return RedirectToAction("Login");
         }
+
         // GET: usuarios
         public ActionResult Index()
         {
