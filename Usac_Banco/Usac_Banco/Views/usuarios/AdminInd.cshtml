@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "AdminInd";
     string nombre = ViewBag.nombre;
+    string code = ViewBag.codigo;
 }
 
 <h2>Pagina De Administrador</h2>
@@ -11,7 +12,7 @@
 <div class="row">
     <div class="col-lg-3 col-md-6">
         <div class="panel panel-primary">
-            <a href="@Url.Action("Create", "usuarios")" class="btn btn-lg btn-primary btn-block">
+            <a href="@Url.Action("AdmCreate", "usuarios")" class="btn btn-lg btn-primary btn-block">
                 <h4 style="color:white;">
                     Nuevo Administrador
                 </h4>
@@ -29,7 +30,7 @@
     </div>
     <div class="col-lg-3 col-md-6">
         <div class="panel panel-yellow">
-            <a href="@Url.Action("Create", "usuarios")" class="btn btn-lg btn-warning btn-block">
+            <a href="@Url.Action("Create", "debitoes", new { codigo = code })" class="btn btn-lg btn-warning btn-block">
                 <h4 style="color:white;">
                     Débitos
                 </h4>

@@ -16,6 +16,7 @@ namespace Usac_Banco.Controllers
             {
                 usuario usu = db.usuario.Find(Session["codigo"]);
                 ViewBag.nombre = usu.nombre + " " + usu.apellido;
+                ViewBag.codigo = usu.codigo.ToString();
                 return View();
             }
             return RedirectToAction("Login");
@@ -172,13 +173,56 @@ namespace Usac_Banco.Controllers
                 db.SaveChanges();
                 cuentasController cuenCon = new cuentasController();
                 cuenta cuenti = new cuenta();
-                cuenti.Saldo = 0;
+                cuenti.Saldo = 1000;
                 int codi = db.usuario.Where(i => i.usua == usuario.usua).First().codigo;
                 cuenti.usua = codi;
                 if (cuenCon.Create(cuenti))
                 {
                     return RedirectToAction("Info", new { codigo = codi });
                 }
+            }
+
+            return View(usuario);
+        }
+
+        // GET: consulta saldo de cuenta
+        public ActionResult Consultar()
+        {
+            if (Session["codigo"] != null)
+            {
+                usuario usu = db.usuario.Find(Session["codigo"]);
+                ViewBag.codigo = usu.codigo.ToString();
+                ViewBag.nombre = usu.nombre + " " + usu.apellido;
+                cuenta cuentica = db.cuenta.Where(i => i.usua == usu.codigo).First();
+                ViewBag.cuenta = cuentica.Numero.ToString();
+                ViewBag.saldo = cuentica.Saldo.ToString();
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
+
+        // GET: crear admin
+        public ActionResult AdmCreate()
+        {
+            if (Session["codigo"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
+
+        // POST: usuarios/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdmCreate([Bind(Include = "nombre,apellido,usua,correo,pass")] usuario usuario)
+        {
+            usuario.rol = 1;
+            if (ModelState.IsValid)
+            {
+                db.usuario.Add(usuario);
+                db.SaveChanges();
+
+                return RedirectToAction("AdminInd");
             }
 
             return View(usuario);
