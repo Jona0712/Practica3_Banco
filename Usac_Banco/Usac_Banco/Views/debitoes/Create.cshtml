@@ -1,24 +1,29 @@
 ﻿@model Usac_Banco.debito
 
 @{
-    Layout = null;
+    string mensaje = ViewBag.mensaje;
+}
+@if (mensaje == "si")
+{
+    <div class="alert alert-danger">
+        El Usuario no tiene Suficiente Saldo Para Debitarle.
+    </div>
+}
+else if (mensaje == "no")
+{
+    <div class="alert alert-danger">
+        El número de cuenta es Incorrecto
+    </div>
 }
 
-<!DOCTYPE html>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-    @using (Html.BeginForm()) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
-            <h4>debito</h4>
-            <hr />
+    <div class="form-horizontal">
+        <h4>Nuevo Debito</h4>
+        <hr />
+        <div class="col-md-8">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.Monto, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -27,7 +32,7 @@
                     @Html.ValidationMessageFor(model => model.Monto, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -35,25 +40,26 @@
                     @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
-                @Html.LabelFor(model => model.cuenta, "cuenta", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.cuenta, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("cuenta", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.EditorFor(model => model.cuenta, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.cuenta, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+
+        </div>
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Realizar" class="btn btn-lg btn-default" />
             </div>
         </div>
-    }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("AdminInd", "usuarios")" class="btn btn-lg btn-info">Regresar</a>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+}

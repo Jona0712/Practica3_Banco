@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Consultar";
+    string nombre = ViewBag.nombre;
+    string codigo = ViewBag.codigo;
+    string cuenta = ViewBag.cuenta;
+    string saldo = ViewBag.saldo;
+}
+
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-9 text-right">
+                        <div>Cuenta</div>
+                        <div>@cuenta</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-9 text-right">
+                        <div>Nombre</div>
+                        <div>@nombre</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-9 text-right">
+                        <div>Código</div>
+                        <div>@codigo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <h2>Hola @nombre, Esta es tu Consulta de Saldo</h2>
+</div>
+<hr />
+<div class="row">
+    <h4>Cuenta No. @cuenta</h4>
+</div>
+<hr />
+<div class="row">
+    <h4>Tu Saldo es de: Q.@saldo</h4>
+</div>
+<hr />
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-info">
+            <a href="@Url.Action("Index", "usuarios")" class="btn btn-lg btn-info btn-block btn-outline">
+                <h4>
+                    Volver
+                </h4>
+            </a>
+        </div>
+    </div>
+</div>

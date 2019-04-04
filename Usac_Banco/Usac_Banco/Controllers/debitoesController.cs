@@ -21,6 +21,17 @@ namespace Usac_Banco.Controllers
             return View(debito.ToList());
         }
 
+        // GET:
+        public ActionResult Asigna(string codigo)
+        {
+            if(codigo != null)
+            {
+                Session["codigo"] = codigo;
+                return RedirectToAction("Create");
+            }
+            return RedirectToAction("AdminInd", "usuarios");
+        }
+
         // GET: debitoes/Details/5
         public ActionResult Details(int? id)
         {
@@ -39,25 +50,38 @@ namespace Usac_Banco.Controllers
         // GET: debitoes/Create
         public ActionResult Create()
         {
-            ViewBag.cuenta = new SelectList(db.cuenta, "Numero", "Numero");
-            return View();
+            if (Session["codigo"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "usuarios");
+
         }
 
         // POST: debitoes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codigo,Monto,Descripcion,cuenta")] debito debito)
+        public ActionResult Create([Bind(Include = "Monto,Descripcion,cuenta")] debito debito)
         {
             if (ModelState.IsValid)
             {
+                cuenta cuentica = db.cuenta.Find(debito.cuenta);
+                if (cuentica == null) 
+                {
+                    ViewBag.mensaje = "no";
+                    return View();
+                }else if (debito.Monto > cuentica.Saldo)
+                {
+                    ViewBag.mensaje = "si";
+                    return View();
+                }
+                cuentica.Saldo = cuentica.Saldo - debito.Monto;
                 db.debito.Add(debito);
+                db.Entry(cuentica).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminInd", "usuarios");
             }
-
-            ViewBag.cuenta = new SelectList(db.cuenta, "Numero", "Numero", debito.cuenta);
+            
             return View(debito);
         }
 
@@ -78,8 +102,6 @@ namespace Usac_Banco.Controllers
         }
 
         // POST: debitoes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "codigo,Monto,Descripcion,cuenta")] debito debito)
