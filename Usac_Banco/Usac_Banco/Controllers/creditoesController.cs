@@ -17,7 +17,7 @@ namespace Usac_Banco.Controllers
         // GET: creditoes
         public ActionResult Index()
         {
-            var credito = db.credito.Include(c => c.cuenta1);
+            var credito = db.credito.Where(i => i.estado == "2");
             return View(credito.ToList());
         }
 
@@ -39,26 +39,30 @@ namespace Usac_Banco.Controllers
         // GET: creditoes/Create
         public ActionResult Create()
         {
-            ViewBag.cuenta = new SelectList(db.cuenta, "codigo", "Numero");
-            return View();
+            if (Session["codigo"] != null)
+            {
+                usuario usu = db.usuario.Find(Session["codigo"]);
+                ViewBag.codigo = usu.codigo.ToString();
+                ViewBag.nombre = usu.nombre + " " + usu.apellido;
+                ViewBag.cuenta = db.cuenta.Where(i => i.usua == usu.codigo).First().Numero.ToString();
+                return View();
+            }
+            return RedirectToAction("Login");
         }
 
         // POST: creditoes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codigo,Monto,Descripcion,estado,cuenta")] credito credito)
+        public ActionResult Create([Bind(Include = "Monto,Descripcion,estado,cuenta")] credito credito)
         {
+            credito.estado = "2";
             if (ModelState.IsValid)
             {
                 db.credito.Add(credito);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","usuarios");
             }
-
-            ViewBag.cuenta = new SelectList(db.cuenta, "codigo", "Numero", credito.cuenta);
-            return View(credito);
+            return RedirectToAction("Index");
         }
 
         // GET: creditoes/Edit/5

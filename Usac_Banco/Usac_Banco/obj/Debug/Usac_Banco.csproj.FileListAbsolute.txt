@@ -121,3 +121,4 @@ D:\rafae\Documents\USAC\Analisis y Diseño 1\Practica3\Practica3_Banco\Usac_Banc
 D:\rafae\Documents\USAC\Analisis y Diseño 1\Practica3\Practica3_Banco\Usac_Banco\Usac_Banco\obj\Debug\Usac_Banco.csproj.CopyComplete
 D:\rafae\Documents\USAC\Analisis y Diseño 1\Practica3\Practica3_Banco\Usac_Banco\Usac_Banco\obj\Debug\Usac_Banco.dll
 D:\rafae\Documents\USAC\Analisis y Diseño 1\Practica3\Practica3_Banco\Usac_Banco\Usac_Banco\obj\Debug\Usac_Banco.pdb
+C:\Users\Jona\Desktop\Practica3_Banco\Usac_Banco\Usac_Banco\obj\Debug\Usac_Banco.csprojResolveAssemblyReference.cache

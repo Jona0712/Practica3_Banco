@@ -1,10 +1,12 @@
 ﻿@using Usac_Banco.Models
-@model Credito
+@model Transferencia
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Transferencia";
+    string saldo = ViewBag.saldo;
     string codigo = ViewBag.codigo;
     string nombre = ViewBag.nombre;
     string cuenta = ViewBag.cuenta;
+    string msg = ViewBag.msg;
 }
 <div class="row">
     <div class="col-lg-3 col-md-6">
@@ -44,29 +46,42 @@
         </div>
     </div>
 </div>
-<h2>Solicitar Nuevo Credito</h2>
+<div class="row">
+    <h2>Bienvenido @nombre</h2>
+</div>
+<hr />
+<h2>Transferencia</h2>
+<h4>Su Saldo en la cuenta es: @saldo</h4>
+
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-2">
+        <div class="col-md-4 col-md-offset-4">
             <div class="panel-body">
+                <div class="row">
+                    @if (msg != null)
+                    {
+                        <h4 class="alert-danger">@msg</h4>
+                    }
+                </div>
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <fieldset>
-                        <div class="form-group">
-                            <h4>Monto:  @Html.EditorFor(model => model.monto, new { htmlAttributes = new { @class = "form-control" } })</h4>
+                        <div class="form-group">    
+                            <!--<h4>Cuenta:  <input type="text" name="c1" id="c1" value="@cuenta" readonly  /></h4>-->
+                            <h4>Cuenta:  @Html.EditorFor(model => model.cuenta1, new { htmlAttributes = new { @class = "form-control", @Value = cuenta,  @readonly="readonly" } })</h4>
                         </div>
                         <div class="form-group">
-                            <h4>Descripcion para solicitar Credito : @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })</h4>
+                            <h4>Cuenta a Transferir : @Html.EditorFor(model => model.cuenta2, new { htmlAttributes = new { @class = "form-control" } })</h4>
                         </div>
                         <div class="form-group">
-                            <h4>Cuenta propia: @Html.EditorFor(model => model.cuenta, new { htmlAttributes = new { @class = "form-control", @Value = cuenta, @readonly = "readonly" } })</h4>
+                            <h4>Monto: @Html.EditorFor(model => model.monto, new { htmlAttributes = new { @class = "form-control" } })</h4>
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-1 col-md-10">
-                                <input type="submit" value="Solicitar" class="btn btn-lg btn-success btn-block" />
+                                <input type="submit" value="Transferencia" class="btn btn-lg btn-success btn-block" />
                             </div>
                         </div>
                         <hr />

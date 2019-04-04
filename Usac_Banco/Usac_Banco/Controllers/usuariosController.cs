@@ -20,7 +20,54 @@ namespace Usac_Banco.Controllers
             }
             return RedirectToAction("Login");
         }
-
+        //Get 
+        public ActionResult Transferencia()
+        {
+            if (Session["codigo"] != null)
+            {
+                usuario usu = db.usuario.Find(Session["codigo"]);
+                ViewBag.codigo = usu.codigo.ToString();
+                ViewBag.nombre = usu.nombre + " " + usu.apellido;
+                ViewBag.cuenta = db.cuenta.Where(i => i.usua == usu.codigo).First().Numero.ToString();
+                cuenta cu = db.cuenta.Where(s=> s.usua == usu.codigo).First();
+                ViewBag.saldo = cu.Saldo.ToString();
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Transferencia(Transferencia model) {
+            if (ModelState.IsValid)
+            {
+                cuenta c = db.cuenta.Find(model.cuenta2);
+                if (c != null)
+                {
+                    cuenta saldo = db.cuenta.Find(model.cuenta1);
+                    if (model.monto <= saldo.Saldo) {
+                        c.Saldo = c.Saldo + model.monto;
+                        saldo.Saldo = saldo.Saldo - model.monto;
+                        db.Entry(c).State = EntityState.Modified;
+                        db.Entry(saldo).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("TransExito");
+                    }
+                }
+                ViewBag.msg = "Datos Incorrectos";
+                usuario usu = db.usuario.Find(Session["codigo"]);
+                ViewBag.codigo = usu.codigo.ToString();
+                ViewBag.nombre = usu.nombre + " " + usu.apellido;
+                ViewBag.cuenta = db.cuenta.Where(i => i.usua == usu.codigo).First().Numero.ToString();
+                cuenta cu = db.cuenta.Where(s => s.usua == usu.codigo).First();
+                ViewBag.saldo = cu.Saldo.ToString();
+                return View();
+            }
+            return RedirectToAction("Index");
+        }
+        public ActionResult TransExito() {
+            return View();
+        }
         // GET: usuarios
         public ActionResult Index()
         {
@@ -65,7 +112,7 @@ namespace Usac_Banco.Controllers
             return View(usuario);
         }
 
-
+        //get
         public ActionResult Login()
         {
             if(Session["codigo"] != null)

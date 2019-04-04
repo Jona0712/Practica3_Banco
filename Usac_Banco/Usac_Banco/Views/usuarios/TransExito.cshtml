@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
-    string nombre = ViewBag.nombre;
+    ViewBag.Title = "TransExito";
+    string saldo = ViewBag.saldo;
     string codigo = ViewBag.codigo;
+    string nombre = ViewBag.nombre;
     string cuenta = ViewBag.cuenta;
 }
-
 <div class="row">
     <div class="col-lg-3 col-md-6">
         <div class="panel panel-primary">
@@ -44,36 +44,10 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <h2>Bienvenido @nombre</h2>
-</div>
-<hr />
-<div class="row">
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-info">
-            <a href="@Url.Action("Create", "usuarios")" class="btn btn-lg btn-info btn-block btn-outline">
-                <h4>
-                    Consultar Saldo
-                </h4>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-red">
-            <a href="@Url.Action("Create", "creditoes")" class="btn btn-lg btn-danger btn-block btn-outline">
-                <h4>
-                    Solicitar Crédito
-                </h4>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-default">
-            <a href="@Url.Action("Transferencia", "usuarios")" class="btn btn-lg btn-default btn-block btn-outline">
-                <h4>
-                    Hacer Transferencia
-                </h4>
-            </a>
-        </div>
+<h2>Se ha completado su Transferencia </h2>
+<div class="form-group">
+    <div class="col-md-offset-1 col-md-10">
+        <a href="@Url.Action("Index", "usuarios")" class="btn btn-lg btn-danger btn-block">Aceptar</a>
     </div>
 </div>
+
