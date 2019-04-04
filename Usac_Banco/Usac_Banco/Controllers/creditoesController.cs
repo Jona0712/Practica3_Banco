@@ -17,8 +17,9 @@ namespace Usac_Banco.Controllers
         // GET: creditoes
         public ActionResult Index()
         {
-            var credito = db.credito.Where(i => i.estado == "2");
-            return View(credito.ToList());
+            //var credito = db.credito.Where(i => i.estado == "2");
+            //return View(credito.ToList());
+            return View();
         }
 
         // GET: creditoes/Details/5
@@ -55,7 +56,7 @@ namespace Usac_Banco.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Monto,Descripcion,estado,cuenta")] credito credito)
         {
-            credito.estado = "2";
+            //credito.estado = "2";
             if (ModelState.IsValid)
             {
                 db.credito.Add(credito);

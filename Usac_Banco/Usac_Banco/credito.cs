@@ -17,7 +17,7 @@ namespace Usac_Banco
         public int codigo { get; set; }
         public Nullable<float> Monto { get; set; }
         public string Descripcion { get; set; }
-        public string estado { get; set; }
+        public byte[] estado { get; set; }
         public Nullable<int> cuenta { get; set; }
     
         public virtual cuenta cuenta1 { get; set; }

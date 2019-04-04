@@ -430,13 +430,8 @@
     <Content Include="Views\debitoes\Index.cshtml" />
     <Content Include="Views\usuarios\AdminInd.cshtml" />
     <Content Include="Views\usuarios\Info.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\usuarios\Transferencia.cshtml" />
-    <Content Include="Views\usuarios\TransExito.cshtml" />
-=======
     <Content Include="Views\usuarios\Consultar.cshtml" />
     <Content Include="Views\usuarios\AdmCreate.cshtml" />
->>>>>>> Credito
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
