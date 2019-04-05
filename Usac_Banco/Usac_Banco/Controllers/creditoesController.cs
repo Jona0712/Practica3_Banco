@@ -4,9 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Usac_Banco;
 
 namespace Usac_Banco.Controllers
 {
@@ -23,6 +21,25 @@ namespace Usac_Banco.Controllers
                 a[0] = 2;
                 var credito = db.credito.Where(i => i.estado == a);
                 return View(credito.ToList());
+            }
+            return RedirectToAction("Login", "usuarios");
+        }
+
+        // GET:
+        public ActionResult Historial()
+        {
+            if (Session["codigo"] != null)
+            {
+                byte[] rr = new byte[1], tt = new byte[1], ss = new byte[1];
+                rr[0] = 1;
+                tt[0] = 2;
+                ss[0] = 3;
+
+                ViewBag.aceptado = Convert.ToBase64String(rr);
+                ViewBag.pendiente = Convert.ToBase64String(tt);
+                ViewBag.recha = Convert.ToBase64String(ss);
+                //var credito = db.credito.Where(i => i.estado == a);
+                return View(db.credito.ToList());
             }
             return RedirectToAction("Login", "usuarios");
         }

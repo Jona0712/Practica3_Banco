@@ -183,3 +183,6 @@ D:\rafae\Documents\Practica3_Banco-Credito\Usac_Banco\Usac_Banco\bin\System.Web.
 D:\rafae\Documents\Practica3_Banco-Credito\Usac_Banco\Usac_Banco\bin\Antlr3.Runtime.pdb
 D:\rafae\Documents\Practica3_Banco-Credito\Usac_Banco\Usac_Banco\bin\Newtonsoft.Json.xml
 D:\rafae\Documents\Practica3_Banco-Credito\Usac_Banco\Usac_Banco\obj\Debug\Usac_Banco.csproj.CopyComplete
+D:\rafae\Documents\USAC\Analisis y Diseño 1\Practica3\Practica3_Banco\Usac_Banco\Usac_Banco\bin\nunit.framework.dll
+D:\rafae\Documents\USAC\Analisis y Diseño 1\Practica3\Practica3_Banco\Usac_Banco\Usac_Banco\bin\nunit.framework.pdb
+D:\rafae\Documents\USAC\Analisis y Diseño 1\Practica3\Practica3_Banco\Usac_Banco\Usac_Banco\bin\nunit.framework.xml

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Usac_Banco.usuario>
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+<a href="@Url.Action("AdmCreate", "usuarios")" class="btn btn-lg btn-primary">
+    Nuevo Administrador
+</a>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.usua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.correo)
+            </th>
+            <th>
+                Eliminar
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.codigo)
+                </td>
+                <td>
+                    @item.nombre @item.apellido
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.usua)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.correo)
+                </td>
+                <td class="center">
+                    <a href="@Url.Action("Delete", "usuarios", new { id=item.codigo })" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <hr />
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-offset-1 col-md-10" align="center">
+                <a href="@Url.Action("AdminInd", "usuarios")" class="btn btn-lg btn-info">Regresar</a>
+            </div>
+        </div>
+    </div>

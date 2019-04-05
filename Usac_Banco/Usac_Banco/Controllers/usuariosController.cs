@@ -98,6 +98,19 @@ namespace Usac_Banco.Controllers
             return RedirectToAction("Login");
         }
 
+        // GET:
+        public ActionResult Usuarios()
+        {
+            if (Session["codigo"] != null)
+            {
+                usuario usu = db.usuario.Find(Session["codigo"]);
+                ViewBag.nombre = usu.nombre + " " + usu.apellido;
+                ViewBag.codigo = usu.codigo.ToString();
+                return View(db.usuario.ToList());
+            }
+            return RedirectToAction("Login");
+        }
+
         // GET: usuarios
         public ActionResult Info(int codigo)
         {
@@ -274,16 +287,20 @@ namespace Usac_Banco.Controllers
         // GET: usuarios/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["codigo"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                usuario usuario = db.usuario.Find(id);
+                if (usuario == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(usuario);
             }
-            usuario usuario = db.usuario.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
+            return RedirectToAction("Login");
         }
 
         // POST: usuarios/Delete/5
@@ -292,9 +309,11 @@ namespace Usac_Banco.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             usuario usuario = db.usuario.Find(id);
+            cuenta cuen = db.cuenta.Where(i => i.usua == usuario.codigo).First();
+            db.cuenta.Remove(cuen);
             db.usuario.Remove(usuario);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminInd");
         }
 
         protected override void Dispose(bool disposing)

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Usac_Banco.credito>
+@{
+    ViewBag.Title = "Historial";
+    string rr = ViewBag.aceptado;
+    string tt = ViewBag.pendiente;
+    string ss = ViewBag.recha;
+
+}
+
+<h2>Historial</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Monto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cuenta1.Numero)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Monto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @if (Convert.ToBase64String(item.estado) == rr)
+                {
+                    <h5 class="btn btn-success btn-xs disabled">Aceptado</h5>
+                }
+                else if (Convert.ToBase64String(item.estado) == tt)
+                {
+                    <h5 class="btn btn-info btn-xs disabled">Pendiente</h5>
+                }
+                else if (Convert.ToBase64String(item.estado) == ss)
+                {
+                    <h5 class="btn btn-danger btn-xs disabled">Rechazado</h5>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cuenta1.Numero)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<hr />
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-offset-1 col-md-10" align="center">
+            <a href="@Url.Action("Index", "creditoes")" class="btn btn-lg btn-info">Regresar</a>
+        </div>
+    </div>
+</div>
